@@ -18,7 +18,7 @@ void IEventHandler::RegisterObserver(const char* eventName, IObserver* observer)
 		// There are no observers for this event. Insert observer into set. Insert set into map.
 		mObservers.insert({ eventName, ObserverSet({observer}) });
 	}
-	else if (mapEntry->second.find(observer) != mapEntry->second.end())
+	else if (mapEntry->second.find(observer) == mapEntry->second.end())
 	{
 		// There are observers for this event. Check for unique observer.
 		mapEntry->second.insert(observer);
@@ -43,7 +43,11 @@ void IEventHandler::NotifyObservers(const char** eventNames, const int& numEvent
 	for (int i = 0; i < numEvents; i++) 
 	{
 		ObserverMap::iterator mapEntry = mObservers.find(eventNames[i]);
-		// TODO: Crashes when mapEntry == end()
+		if (mapEntry == mObservers.end()) 
+		{
+			continue;
+		}
+
 		for (ObserverSet::const_iterator iter = mapEntry->second.begin(); iter != mapEntry->second.end(); iter++)
 		{
 			(*iter)->HandleEvent(eventNames[i]);

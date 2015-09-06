@@ -6,8 +6,8 @@
 
 class IObserver;
 
-typedef std::set<IObserver*>		ObserverSet;
-typedef std::unordered_map<const char*, ObserverSet>					ObserverMap;
+typedef std::set<IObserver*>							ObserverSet;
+typedef std::unordered_map<const char*, ObserverSet>	ObserverMap;
 
 class IEventHandler
 {

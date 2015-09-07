@@ -18,15 +18,9 @@
     <ClInclude Include="IEventHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

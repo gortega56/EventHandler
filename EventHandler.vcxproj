@@ -65,11 +65,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IEventHandler.h" />
-    <ClInclude Include="IObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IEventHandler.cpp" />
-    <ClCompile Include="IObserver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

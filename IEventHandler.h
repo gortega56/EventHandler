@@ -2,12 +2,12 @@
 #include "IObserver.h"
 #include <set>
 #include <unordered_map>
-#include <functional>
+#include <stdint.h>
 
 class IObserver;
 
-typedef std::set<IObserver*>							ObserverSet;
-typedef std::unordered_map<const char*, ObserverSet>	ObserverMap;
+typedef std::set<IObserver*>						ObserverSet;
+typedef std::unordered_map<uint32_t, ObserverSet>	ObserverMap;
 
 class IEventHandler
 {
@@ -15,9 +15,9 @@ public:
 	IEventHandler();
 	~IEventHandler();
 
-	void RegisterObserver(const char* eventName, IObserver* observer);
-	void UnregisterObserver(const char* eventName, IObserver* observer);
-	void NotifyObservers(const char** eventNames, const int& numEvents);
+	void RegisterObserver(uint32_t eventName, IObserver* observer);
+	void UnregisterObserver(uint32_t eventName, IObserver* observer);
+	void NotifyObservers(uint32_t* eventNames, const int& numEvents);
 
 protected:
 	ObserverMap mObservers;

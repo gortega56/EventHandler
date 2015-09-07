@@ -10,7 +10,7 @@ IEventHandler::~IEventHandler()
 	mObservers.clear();
 }
 
-void IEventHandler::RegisterObserver(const char* eventName, IObserver* observer)
+void IEventHandler::RegisterObserver(uint32_t eventName, IObserver* observer)
 {
 	ObserverMap::iterator mapEntry = mObservers.find(eventName);
 	if (mapEntry == mObservers.end()) 
@@ -25,7 +25,7 @@ void IEventHandler::RegisterObserver(const char* eventName, IObserver* observer)
 	}
 }
 
-void IEventHandler::UnregisterObserver(const char* eventName, IObserver* observer)
+void IEventHandler::UnregisterObserver(uint32_t eventName, IObserver* observer)
 {
 	ObserverMap::iterator mapEntry = mObservers.find(eventName);
 	if (mapEntry != mObservers.end()) 
@@ -38,7 +38,7 @@ void IEventHandler::UnregisterObserver(const char* eventName, IObserver* observe
 	}
 }
 
-void IEventHandler::NotifyObservers(const char** eventNames, const int& numEvents)
+void IEventHandler::NotifyObservers(uint32_t* eventNames, const int& numEvents)
 {
 	for (int i = 0; i < numEvents; i++) 
 	{

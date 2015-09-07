@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <stdint.h>
 
 class IObserver
 {
@@ -7,7 +8,7 @@ public:
 	IObserver();
 	~IObserver();
 
-	virtual void HandleEvent(const char* eventName) = 0;
+	virtual void HandleEvent(uint32_t eventName) = 0;
 };
 
 namespace std

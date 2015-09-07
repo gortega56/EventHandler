@@ -48,6 +48,6 @@ void IEventHandler::NotifyObservers(uint32_t eventName)
 
 	for (ObserverSet::const_iterator iter = mapEntry->second.begin(); iter != mapEntry->second.end(); iter++)
 	{
-		(*iter)->HandleEvent(eventName);
+		DispatchEvent(*iter);
 	}
 }

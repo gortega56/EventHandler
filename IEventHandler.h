@@ -18,6 +18,7 @@ public:
 	void RegisterObserver(uint32_t eventName, IObserver* observer);
 	void UnregisterObserver(uint32_t eventName, IObserver* observer);
 	void NotifyObservers(uint32_t eventName);
+	virtual void DispatchEvent(IObserver* observer) = 0;
 
 protected:
 	ObserverMap mObservers;

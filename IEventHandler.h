@@ -17,7 +17,7 @@ public:
 
 	void RegisterObserver(uint32_t eventName, IObserver* observer);
 	void UnregisterObserver(uint32_t eventName, IObserver* observer);
-	void NotifyObservers(uint32_t* eventNames, const int& numEvents);
+	void NotifyObservers(uint32_t eventName);
 
 protected:
 	ObserverMap mObservers;

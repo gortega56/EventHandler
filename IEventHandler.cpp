@@ -38,19 +38,16 @@ void IEventHandler::UnregisterObserver(uint32_t eventName, IObserver* observer)
 	}
 }
 
-void IEventHandler::NotifyObservers(uint32_t* eventNames, const int& numEvents)
+void IEventHandler::NotifyObservers(uint32_t eventName)
 {
-	for (int i = 0; i < numEvents; i++) 
+	ObserverMap::iterator mapEntry = mObservers.find(eventName);
+	if (mapEntry == mObservers.end())
 	{
-		ObserverMap::iterator mapEntry = mObservers.find(eventNames[i]);
-		if (mapEntry == mObservers.end()) 
-		{
-			continue;
-		}
+		return;
+	}
 
-		for (ObserverSet::const_iterator iter = mapEntry->second.begin(); iter != mapEntry->second.end(); iter++)
-		{
-			(*iter)->HandleEvent(eventNames[i]);
-		}
+	for (ObserverSet::const_iterator iter = mapEntry->second.begin(); iter != mapEntry->second.end(); iter++)
+	{
+		(*iter)->HandleEvent(eventName);
 	}
 }

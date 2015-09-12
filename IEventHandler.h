@@ -7,19 +7,19 @@
 #pragma warning (disable: 4251)
 
 #ifdef _WINDLL
-#define EVENT_API __declspec(dllexport)
+#define IEVENT_API __declspec(dllexport)
 #else
-#define EventDispatcher __declspec(dllimport)
+#define IEVENT_API __declspec(dllimport)
 #endif
 
-class EVENT_API IEvent
+class IEVENT_API IEvent
 {
 public:
 	IEvent() {};
 	virtual ~IEvent() = 0 {};
 };
 
-class EVENT_API IObserver
+class IEVENT_API IObserver
 {
 public:
 	IObserver() {};
@@ -31,7 +31,7 @@ public:
 typedef std::set<IObserver*>						ObserverSet;
 typedef std::unordered_map<uint32_t, ObserverSet>	ObserverMap;
 
-class EVENT_API IEventHandler
+class IEVENT_API IEventHandler
 {
 public:
 	IEventHandler();
@@ -48,7 +48,7 @@ protected:
 namespace std
 {
 	template<>
-	struct EVENT_API hash<IObserver>
+	struct IEVENT_API hash<IObserver>
 	{
 		size_t operator()(const IObserver& observer) const
 		{
@@ -57,7 +57,7 @@ namespace std
 	};
 
 	template<>
-	struct EVENT_API equal_to<IObserver>
+	struct IEVENT_API equal_to<IObserver>
 	{
 		bool operator()(const IObserver& lhs, const IObserver& rhs) const
 		{

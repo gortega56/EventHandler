@@ -1,7 +1,5 @@
 #include "IEventHandler.h"
 
-using namespace cliqCity;
-
 IEventHandler::IEventHandler()
 {
 }

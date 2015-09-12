@@ -4,56 +4,69 @@
 #include <set>
 #include <stdint.h>
 
-class IEvent
-{
-public:
-	IEvent() {};
-	virtual ~IEvent() = 0 {};
-};
+#pragma warning (disable: 4251)
 
-class IObserver
-{
-public:
-	IObserver() {};
-	~IObserver() {};
+#ifdef _WINDLL
+#define EVENT_API __declspec(dllexport)
+#else
+#define EventDispatcher __declspec(dllimport)
+#endif
 
-	virtual void HandleEvent(const IEvent& iEvent) = 0;
-};
+namespace cliqCity
+{
+	class EVENT_API IEvent
+	{
+	public:
+		IEvent() {};
+		virtual ~IEvent() = 0 {};
+	};
+
+	class EVENT_API IObserver
+	{
+	public:
+		IObserver() {};
+		~IObserver() {};
+
+		virtual void HandleEvent(const IEvent& iEvent) = 0;
+	};
+
+
+
+	typedef std::set<IObserver*>						ObserverSet;
+	typedef std::unordered_map<uint32_t, ObserverSet>	ObserverMap;
+
+	class EVENT_API IEventHandler
+	{
+	public:
+		IEventHandler();
+		~IEventHandler();
+
+		void RegisterObserver(uint32_t eventID, IObserver* observer);
+		void UnregisterObserver(uint32_t eventID, IObserver* observer);
+		virtual void NotifyObservers(const IEvent& iEvent) = 0;
+
+	protected:
+		ObserverMap mObservers;
+	};
+}
 
 namespace std
 {
 	template<>
-	struct hash<IObserver>
+	struct EVENT_API hash<cliqCity::IObserver>
 	{
-		size_t operator()(const IObserver& observer) const
+		size_t operator()(const cliqCity::IObserver& observer) const
 		{
 			return (size_t)&observer;
 		}
 	};
 
 	template<>
-	struct equal_to<IObserver>
+	struct EVENT_API equal_to<cliqCity::IObserver>
 	{
-		bool operator()(const IObserver& lhs, const IObserver& rhs) const
+		bool operator()(const cliqCity::IObserver& lhs, const cliqCity::IObserver& rhs) const
 		{
 			return (&lhs == &rhs);
 		}
 	};
 }
-
-typedef std::set<IObserver*>						ObserverSet;
-typedef std::unordered_map<uint32_t, ObserverSet>	ObserverMap;
-
-class IEventHandler
-{
-public:
-	IEventHandler();
-	~IEventHandler();
-
-	void RegisterObserver(uint32_t eventID, IObserver* observer);
-	void UnregisterObserver(uint32_t eventID, IObserver* observer);
-	virtual void NotifyObservers(uint32_t eventID) = 0;
-
-protected:
-	ObserverMap mObservers;
-};

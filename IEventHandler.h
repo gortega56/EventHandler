@@ -23,7 +23,7 @@ class IEVENT_API IObserver
 {
 public:
 	IObserver() {};
-	~IObserver() {};
+	virtual ~IObserver() {};
 
 	virtual void HandleEvent(const IEvent& iEvent) = 0;
 };
@@ -35,7 +35,7 @@ class IEVENT_API IEventHandler
 {
 public:
 	IEventHandler();
-	~IEventHandler();
+	virtual ~IEventHandler();
 
 	void RegisterObserver(uint32_t eventID, IObserver* observer);
 	void UnregisterObserver(uint32_t eventID, IObserver* observer);
@@ -52,7 +52,7 @@ namespace std
 	{
 		size_t operator()(const IObserver& observer) const
 		{
-			return (size_t)&observer;
+			return reinterpret_cast<size_t>(&observer);
 		}
 	};
 
